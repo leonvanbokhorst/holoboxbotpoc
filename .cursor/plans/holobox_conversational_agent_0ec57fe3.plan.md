@@ -1,6 +1,6 @@
 ---
 name: Holobox Conversational Agent
-overview: Modular voice-in/voice-out conversational AI agent for kids in the Tilburg public library. Combines a programmable spontaneity engine (research variable for believability) with a scenario orchestration layer that supports Meike's structured interaction sequences (surprise games, avatar generation, memory testing).
+overview: Modular voice-in/voice-out conversational AI agent for kids in the Tilburg public library. Combines a programmable spontaneity engine (research variable for believability) with a scenario orchestration layer that supports the IxD team's structured interaction sequences (surprise games, avatar generation, memory testing).
 todos:
   - id: scaffold
     content: "Project scaffold: pyproject.toml, directory structure, pydantic config, .env.example, README"
@@ -39,7 +39,7 @@ todos:
     content: "Child profile: structured extraction and tracking of name, age, interests from conversation -- used for avatar generation and research logging"
     status: completed
   - id: scenario-definitions
-    content: "YAML scenario definitions for Meike's 3 scenarios: surprise game, interest-driven avatar, memory/attention test"
+    content: "YAML scenario definitions for the IxD team's 3 scenarios: surprise game, interest-driven avatar, memory/attention test"
     status: completed
   - id: action-triggers
     content: "Holobox action triggers: extend WebSocket events with animation cues (present_hands, reveal_surprise, take_pen, show_avatar) for Unreal Engine MetaHuman"
@@ -54,7 +54,7 @@ isProject: false
 
 ## Architecture
 
-Two layers: a **conversation layer** (voice pipeline + spontaneity) and a **scenario layer** (structured interaction beats from Meike's research designs). The scenario runner acts as a director -- it tells the brain _what phase we're in_ and _what to accomplish_, while the brain handles _how to say it_. Spontaneity fires _within_ phases, keeping things human-messy even inside structured sequences.
+Two layers: a **conversation layer** (voice pipeline + spontaneity) and a **scenario layer** (structured interaction beats from the IxD team's research designs). The scenario runner acts as a director -- it tells the brain _what phase we're in_ and _what to accomplish_, while the brain handles _how to say it_. Spontaneity fires _within_ phases, keeping things human-messy even inside structured sequences.
 
 ```mermaid
 flowchart TD
@@ -123,9 +123,9 @@ holoboxbotpoc/
   personas/
     default.yaml         # persona definition (name, traits, spontaneity style)
   scenarios/
-    surprise_game.yaml   # Meike scenario 1: guess-the-hand + avatar reward
-    avatar_interests.yaml # Meike scenario 2: interest-driven avatar generation
-    memory_test.yaml     # Meike scenario 3: conversational memory assessment
+    surprise_game.yaml   # IxD scenario 1: guess-the-hand + avatar reward
+    avatar_interests.yaml # IxD scenario 2: interest-driven avatar generation
+    memory_test.yaml     # IxD scenario 3: conversational memory assessment
     free_chat.yaml       # open-ended conversation (original mode, no phases)
   logs/                  # research output directory
 ```
@@ -181,7 +181,7 @@ Kids are not adults. The agent must handle:
 - **Interruptions** -- if kid speaks while agent talks, agent stops (audio playback cancel)
 - **Wandering off** -- silence > threshold triggers spontaneity engine, not awkward waiting
 
-## Scenario System (Meike's interaction designs)
+## Scenario System (IxD team's interaction designs)
 
 A scenario is a YAML-defined sequence of **phases**, each with a goal, LLM instructions, expected data to collect, and optional Holobox action triggers. The scenario runner is a lightweight state machine that sits between user input and the conversation brain.
 
@@ -285,7 +285,7 @@ Every event gets logged as structured JSON lines:
 {"ts": "...", "event": "action_trigger", "action": "reveal_surprise", "scenario": "surprise_game", "phase": "guessing_game"}
 ```
 
-This gives Pieter, Maaike, and the broader research team clean data to analyze:
+This gives the research team clean data to analyze:
 
 - What spontaneity level does to interaction patterns (original research question)
 - Whether kids retain information from the VH (memory/attention)
@@ -309,10 +309,10 @@ Build bottom-up, each step produces a runnable checkpoint:
 9. **WebSocket integration layer** -- event server for future Holobox hookup
 10. **Polish** -- interruption handling, turn-taking tuning, error recovery
 
-### Phase 2 -- Scenario Layer (Meike alignment)
+### Phase 2 -- Scenario Layer (IxD alignment)
 
 11. **Scenario engine** -- phase-based state machine with YAML-driven scenario definitions
 12. **Child profile** -- structured data extraction (name, age, interests) using LLM JSON mode
-13. **Scenario definitions** -- YAML files for Meike's 3 scenarios + free_chat fallback
+13. **Scenario definitions** -- YAML files for the IxD team's 3 scenarios + free_chat fallback
 14. **Action triggers** -- extend WebSocket events with Holobox animation cues
 15. **Wire scenarios into main** -- `--scenario` CLI flag, scenario selection, phase transitions

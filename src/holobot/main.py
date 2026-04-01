@@ -6,7 +6,7 @@ Supports two modes:
 
 And two conversation styles:
   - Free chat (default): open-ended, spontaneity-only agency
-  - Scenario (--scenario): phase-guided interaction from YAML (Meike's designs)
+  - Scenario (--scenario): phase-guided interaction from YAML (IxD team's designs)
 """
 
 from __future__ import annotations

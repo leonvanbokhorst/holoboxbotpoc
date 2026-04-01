@@ -1,7 +1,7 @@
 id: avatar_interests
 name: "Avatar op basis van interesses"
 description: >
-  Meike Scenario 2: Personal Interest-Driven Avatar Generation.
+  IxD Scenario 2: Personal Interest-Driven Avatar Generation.
   The VH collects name, age, and interests, then creates a personalized
   avatar as a collectible card.
 

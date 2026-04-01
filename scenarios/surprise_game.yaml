@@ -1,7 +1,7 @@
 id: surprise_game
 name: "Verrassing spelletje"
 description: >
-  Meike Scenario 1: Surprise-Based Interaction and Reward Mechanism.
+  IxD Scenario 1: Surprise-Based Interaction and Reward Mechanism.
   The VH asks the child's name, invites them to guess which hand holds
   a surprise, then reveals a personalized mini-avatar collectible card.
 

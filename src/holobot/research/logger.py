@@ -1,7 +1,7 @@
 """Research event logger — structured JSONL for interaction analysis.
 
 Logs every event (user utterance, agent response, spontaneous impulse,
-state transitions) for Pieter and Maaike's believability research.
+state transitions) for the research team's believability research.
 """
 
 from __future__ import annotations

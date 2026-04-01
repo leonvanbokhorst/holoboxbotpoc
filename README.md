@@ -9,7 +9,7 @@ Built as a standalone agent that integrates with the Holobox virtual human later
 tangents, self-corrections, thinking aloud). Configurable levels for A/B research
 on virtual human believability.
 
-**Scenario System** -- structured interaction sequences from Meike's research
+**Scenario System** -- structured interaction sequences from the IxD team's research
 designs. Phase-guided conversation (greeting, game, memory test, farewell) while
 spontaneity still fires within phases.
 
@@ -40,7 +40,7 @@ uv run holobot --text --scenario surprise_game --level 3
 uv run holobot --list-scenarios
 ```
 
-## Scenarios (Meike's interaction designs)
+## Scenarios (IxD team's interaction designs)
 
 | Scenario | Description | Phases |
 |----------|-------------|--------|

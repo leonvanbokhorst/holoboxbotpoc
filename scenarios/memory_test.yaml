@@ -1,7 +1,7 @@
 id: memory_test
 name: "Geheugen en aandacht test"
 description: >
-  Meike Scenario 3: Conversational Memory and Attention Assessment.
+  IxD Scenario 3: Conversational Memory and Attention Assessment.
   The VH introduces itself by name, performs a subtle memorable action
   during conversation, then tests the child's recall at the end.
 
