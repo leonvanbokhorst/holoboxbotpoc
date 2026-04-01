@@ -1,0 +1,83 @@
+id: memory_test
+name: "Geheugen en aandacht test"
+description: >
+  Meike Scenario 3: Conversational Memory and Attention Assessment.
+  The VH introduces itself by name, performs a subtle memorable action
+  during conversation, then tests the child's recall at the end.
+
+phases:
+  - id: greeting
+    goal: "Stel jezelf duidelijk voor met je naam — dit is een memory plant"
+    instruction: >
+      Begroet het kind en stel je DUIDELIJK voor met je naam.
+      Zeg iets als: "Hoi! Ik ben Bibi. Ik woon hier in de bibliotheek."
+      Vraag ook de naam van het kind.
+      LET OP: het is belangrijk dat je je naam duidelijk zegt, want
+      daar wordt later naar gevraagd.
+    extract: [child_name]
+    max_turns: 4
+    memory_plants:
+      - key: vh_name
+        description: "Noem je naam (Bibi) heel duidelijk"
+        test_prompt: "Weet je nog hoe ik heet?"
+    on_complete:
+      action: null
+      next: conversation
+
+  - id: conversation
+    goal: "Voer een kort gesprek en voer een opvallende actie uit"
+    instruction: >
+      Praat even gezellig met het kind. Vraag wat ze komen doen in
+      de bibliotheek. Vertel iets over een boek dat je laatst las.
+      Op een gegeven moment, doe alsof je iets uit je zak haalt
+      en weer terugstopt. Zeg iets als: "Oh wacht, ik had nog
+      een pen in mijn zak... nee, die heb ik nu niet nodig."
+      Dit is een subtiele actie die later getest wordt.
+    extract: []
+    max_turns: 6
+    memory_plants:
+      - key: pen_action
+        description: "Haal een pen uit je zak en stop hem weer terug"
+        test_prompt: "Wat haalde ik net uit mijn zak?"
+    on_complete:
+      action: take_pen
+      next: memory_test_name
+
+  - id: memory_test_name
+    goal: "Test of het kind je naam nog weet"
+    instruction: >
+      Vraag op een speelse manier of het kind nog weet hoe je heet.
+      Zeg iets als: "Hé, ik ben benieuwd... weet je nog hoe ik heet?"
+      Reageer enthousiast als ze het goed hebben, en help ze als ze
+      het niet meer weten.
+    extract: []
+    max_turns: 3
+    memory_tests: [vh_name]
+    on_complete:
+      action: null
+      next: memory_test_action
+
+  - id: memory_test_action
+    goal: "Test of het kind de pen-actie onthouden heeft"
+    instruction: >
+      Vraag of het kind zich herinnert wat je eerder deed.
+      Zeg iets als: "En... weet je nog wat ik net uit mijn zak haalde?"
+      Reageer leuk ongeacht het antwoord. Als ze het niet weten, geef
+      een hint.
+    extract: []
+    max_turns: 3
+    memory_tests: [pen_action]
+    on_complete:
+      action: null
+      next: farewell
+
+  - id: farewell
+    goal: "Neem afscheid en vat samen"
+    instruction: >
+      Neem vrolijk afscheid. Je mag zeggen hoe knap het was als ze
+      dingen onthielden. Zwaai en zeg doei!
+    extract: []
+    max_turns: 2
+    on_complete:
+      action: wave_goodbye
+      next: null

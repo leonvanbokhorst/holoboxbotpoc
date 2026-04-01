@@ -34,19 +34,19 @@ todos:
     status: completed
   - id: scenario-engine
     content: "Scenario engine: phase-based state machine that guides conversations through structured beats (intro, game, memory test, farewell) while allowing spontaneity within each phase"
-    status: in_progress
+    status: completed
   - id: child-profile
     content: "Child profile: structured extraction and tracking of name, age, interests from conversation -- used for avatar generation and research logging"
-    status: pending
+    status: completed
   - id: scenario-definitions
     content: "YAML scenario definitions for Meike's 3 scenarios: surprise game, interest-driven avatar, memory/attention test"
-    status: pending
+    status: completed
   - id: action-triggers
     content: "Holobox action triggers: extend WebSocket events with animation cues (present_hands, reveal_surprise, take_pen, show_avatar) for Unreal Engine MetaHuman"
-    status: pending
+    status: completed
   - id: wire-scenarios
     content: "Wire scenario engine into main orchestrator: --scenario CLI flag, scenario selection, phase transitions driving both conversation and Holobox events"
-    status: pending
+    status: completed
 isProject: false
 ---
 

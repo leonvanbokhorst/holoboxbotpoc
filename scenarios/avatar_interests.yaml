@@ -1,0 +1,75 @@
+id: avatar_interests
+name: "Avatar op basis van interesses"
+description: >
+  Meike Scenario 2: Personal Interest-Driven Avatar Generation.
+  The VH collects name, age, and interests, then creates a personalized
+  avatar as a collectible card.
+
+phases:
+  - id: greeting
+    goal: "Leer de naam van het kind"
+    instruction: >
+      Begroet het kind vrolijk. Stel je voor als Bibi en vraag hoe het heet.
+    extract: [child_name]
+    max_turns: 4
+    on_complete:
+      action: null
+      next: collect_age
+
+  - id: collect_age
+    goal: "Vraag hoe oud het kind is"
+    instruction: >
+      Vraag op een natuurlijke manier hoe oud het kind is. Reageer enthousiast
+      op hun antwoord. Gebruik hun naam.
+    extract: [child_age]
+    max_turns: 3
+    on_complete:
+      action: null
+      next: collect_interests
+
+  - id: collect_interests
+    goal: "Ontdek wat het kind leuk vindt"
+    instruction: >
+      Vraag wat het kind het allerleukste vindt om te doen. Vraag door!
+      Wat is hun favoriete boek, sport, spel, of hobby?
+      Probeer minstens 2-3 interesses te verzamelen.
+    extract: [child_interests]
+    max_turns: 6
+    on_complete:
+      action: null
+      next: avatar_creation
+
+  - id: avatar_creation
+    goal: "Maak een avatar op basis van de interesses"
+    instruction: >
+      Vertel het kind dat je iets speciaals gaat maken op basis van wat
+      ze je verteld hebben. Doe alsof je nadenkt en tovert. Bouw spanning op.
+      Zeg iets als: "Even kijken... ik ga iets heel cools voor je maken!"
+    extract: []
+    max_turns: 3
+    on_complete:
+      action: present_hands
+      next: avatar_reveal
+
+  - id: avatar_reveal
+    goal: "Onthul het persoonlijke kaartje"
+    instruction: >
+      Tada! Het kaartje is klaar. Beschrijf enthousiast wat erop staat —
+      improviseer details die passen bij de interesses van het kind.
+      Maak het persoonlijk en bijzonder.
+    extract: []
+    max_turns: 3
+    on_complete:
+      action: show_avatar_card
+      next: farewell
+
+  - id: farewell
+    goal: "Neem afscheid"
+    instruction: >
+      Neem warm afscheid. Zeg dat het kaartje speciaal voor hen is gemaakt
+      en dat niemand anders precies hetzelfde kaartje heeft. Zwaai!
+    extract: []
+    max_turns: 2
+    on_complete:
+      action: wave_goodbye
+      next: null

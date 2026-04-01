@@ -46,6 +46,9 @@ class Settings(BaseSettings):
     # Persona
     persona_path: Path = Path("personas/default.yaml")
 
+    # Scenarios
+    scenarios_dir: Path = Path("scenarios")
+
     # WebSocket
     ws_host: str = "0.0.0.0"
     ws_port: int = 8765

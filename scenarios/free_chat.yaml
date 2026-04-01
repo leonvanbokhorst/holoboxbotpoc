@@ -1,0 +1,18 @@
+id: free_chat
+name: "Vrij gesprek"
+description: >
+  Open-ended conversation with no structured phases.
+  The original mode — spontaneity engine drives all agency.
+  Use as control condition in A/B testing.
+
+phases:
+  - id: conversation
+    goal: "Voer een leuk, open gesprek met het kind"
+    instruction: >
+      Praat gewoon met het kind. Geen specifiek doel — wees nieuwsgierig,
+      stel vragen, vertel iets over jezelf, en volg waar het gesprek naartoe gaat.
+    extract: [child_name]
+    max_turns: 100
+    on_complete:
+      action: wave_goodbye
+      next: null

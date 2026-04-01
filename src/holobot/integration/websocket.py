@@ -91,3 +91,21 @@ class HoloboxEventServer:
 
     async def emit_user_silent(self) -> None:
         await self.emit("user_silent")
+
+    # ── Action triggers (scenario-driven Holobox animations) ─────────
+
+    async def emit_action(self, action: str, scenario_id: str, phase_id: str) -> None:
+        await self.emit("action_trigger", {
+            "action": action,
+            "scenario_id": scenario_id,
+            "phase_id": phase_id,
+        })
+
+    async def emit_phase_transition(
+        self, scenario_id: str, from_phase: str, to_phase: str
+    ) -> None:
+        await self.emit("phase_transition", {
+            "scenario_id": scenario_id,
+            "from_phase": from_phase,
+            "to_phase": to_phase,
+        })

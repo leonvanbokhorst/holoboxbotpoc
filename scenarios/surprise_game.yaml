@@ -1,0 +1,65 @@
+id: surprise_game
+name: "Verrassing spelletje"
+description: >
+  Meike Scenario 1: Surprise-Based Interaction and Reward Mechanism.
+  The VH asks the child's name, invites them to guess which hand holds
+  a surprise, then reveals a personalized mini-avatar collectible card.
+
+phases:
+  - id: greeting
+    goal: "Leer de naam van het kind"
+    instruction: >
+      Begroet het kind enthousiast. Stel je voor (je bent Bibi) en vraag
+      hoe het kind heet. Wees warm en nieuwsgierig.
+    extract: [child_name]
+    max_turns: 4
+    on_complete:
+      action: null
+      next: tease_surprise
+
+  - id: tease_surprise
+    goal: "Maak het kind nieuwsgierig over een verrassing"
+    instruction: >
+      Vertel het kind dat je iets speciaals voor hen hebt. Bouw spanning op.
+      Zeg iets als: "Ik heb een verrassing voor je! Maar je moet raden..."
+      Gebruik de naam van het kind als je die weet.
+    extract: []
+    max_turns: 3
+    on_complete:
+      action: present_hands
+      next: guessing_game
+
+  - id: guessing_game
+    goal: "Laat het kind raden: links of rechts?"
+    instruction: >
+      Je houdt je handen dicht. In één hand zit een verrassing.
+      Vraag: "In welke hand zit het? Links of rechts?"
+      Reageer speels op hun keuze. Het antwoord is altijd goed!
+    extract: [child_guess]
+    max_turns: 4
+    on_complete:
+      action: reveal_surprise
+      next: avatar_reveal
+
+  - id: avatar_reveal
+    goal: "Onthul het persoonlijke kaartje"
+    instruction: >
+      De verrassing is onthuld! Het is een speciaal kaartje gemaakt
+      voor het kind. Reageer enthousiast. Beschrijf wat je ziet op het kaartje
+      (improviseer iets leuks dat past bij het kind).
+    extract: []
+    max_turns: 3
+    on_complete:
+      action: show_avatar_card
+      next: farewell
+
+  - id: farewell
+    goal: "Neem afscheid"
+    instruction: >
+      Neem vrolijk afscheid van het kind. Zeg dat je het leuk vond en
+      dat ze hun kaartje mogen houden. Zwaai.
+    extract: []
+    max_turns: 2
+    on_complete:
+      action: wave_goodbye
+      next: null

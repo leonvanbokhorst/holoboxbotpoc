@@ -75,5 +75,40 @@ class ResearchLogger:
     def log_state_change(self, state: str, detail: str = "") -> None:
         self.log_event("state_change", {"state": state, "detail": detail})
 
+    # ── Scenario events ──────────────────────────────────────────────
+
+    def log_phase_transition(
+        self, scenario_id: str, from_phase: str, to_phase: str
+    ) -> None:
+        self.log_event("phase_transition", {
+            "scenario": scenario_id,
+            "from": from_phase,
+            "to": to_phase,
+        })
+
+    def log_child_data_extracted(
+        self, field: str, value: object, phase: str
+    ) -> None:
+        self.log_event("child_data_extracted", {
+            "field": field,
+            "value": str(value),
+            "phase": phase,
+        })
+
+    def log_action_trigger(
+        self, action: str, scenario_id: str, phase: str
+    ) -> None:
+        self.log_event("action_trigger", {
+            "action": action,
+            "scenario": scenario_id,
+            "phase": phase,
+        })
+
+    def log_memory_plant(self, key: str, phase: str) -> None:
+        self.log_event("memory_plant", {"info": key, "planted_at": phase})
+
+    def log_memory_test(self, key: str, phase: str) -> None:
+        self.log_event("memory_test", {"info": key, "phase": phase})
+
     def close(self) -> None:
         self.log_event("session_end")

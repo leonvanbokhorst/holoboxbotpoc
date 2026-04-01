@@ -40,10 +40,25 @@ class ConversationEngine:
         self.cfg = settings or get_settings()
         self.persona = persona
         self._client = AsyncOpenAI(api_key=self.cfg.openai_api_key)
+        self._base_system_prompt = persona.build_system_prompt()
+        self._phase_instruction: str | None = None
         self._messages: list[dict[str, str]] = [
-            {"role": "system", "content": persona.build_system_prompt()}
+            {"role": "system", "content": self._base_system_prompt}
         ]
         self.state = ConversationState()
+
+    def set_phase_instruction(self, instruction: str | None) -> None:
+        """Overlay a scenario phase instruction onto the system prompt.
+
+        This updates the system message in-place so the LLM sees both
+        the persona and the current phase goal.
+        """
+        self._phase_instruction = instruction
+        if instruction:
+            combined = f"{self._base_system_prompt}\n\n{instruction}"
+        else:
+            combined = self._base_system_prompt
+        self._messages[0] = {"role": "system", "content": combined}
 
     async def respond(self, user_text: str) -> str:
         """Generate a response to user input."""
