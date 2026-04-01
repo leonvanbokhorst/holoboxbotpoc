@@ -1,6 +1,6 @@
 ---
 name: Holobox Conversational Agent
-overview: "Modular voice-in/voice-out conversational AI agent for kids in the Tilburg public library. Combines a programmable spontaneity engine (research variable for believability) with a scenario orchestration layer that supports Meike's structured interaction sequences (surprise games, avatar generation, memory testing)."
+overview: Modular voice-in/voice-out conversational AI agent for kids in the Tilburg public library. Combines a programmable spontaneity engine (research variable for believability) with a scenario orchestration layer that supports Meike's structured interaction sequences (surprise games, avatar generation, memory testing).
 todos:
   - id: scaffold
     content: "Project scaffold: pyproject.toml, directory structure, pydantic config, .env.example, README"
@@ -34,7 +34,7 @@ todos:
     status: completed
   - id: scenario-engine
     content: "Scenario engine: phase-based state machine that guides conversations through structured beats (intro, game, memory test, farewell) while allowing spontaneity within each phase"
-    status: pending
+    status: in_progress
   - id: child-profile
     content: "Child profile: structured extraction and tracking of name, age, interests from conversation -- used for avatar generation and research logging"
     status: pending
@@ -54,7 +54,7 @@ isProject: false
 
 ## Architecture
 
-Two layers: a **conversation layer** (voice pipeline + spontaneity) and a **scenario layer** (structured interaction beats from Meike's research designs). The scenario runner acts as a director -- it tells the brain *what phase we're in* and *what to accomplish*, while the brain handles *how to say it*. Spontaneity fires *within* phases, keeping things human-messy even inside structured sequences.
+Two layers: a **conversation layer** (voice pipeline + spontaneity) and a **scenario layer** (structured interaction beats from Meike's research designs). The scenario runner acts as a director -- it tells the brain _what phase we're in_ and _what to accomplish_, while the brain handles _how to say it_. Spontaneity fires _within_ phases, keeping things human-messy even inside structured sequences.
 
 ```mermaid
 flowchart TD
@@ -185,7 +185,7 @@ Kids are not adults. The agent must handle:
 
 A scenario is a YAML-defined sequence of **phases**, each with a goal, LLM instructions, expected data to collect, and optional Holobox action triggers. The scenario runner is a lightweight state machine that sits between user input and the conversation brain.
 
-**How it works:** Each phase injects context into the LLM system prompt ("you are now in the greeting phase, your goal is to learn the child's name"). The brain still generates natural conversation, but guided toward the phase goal. When the goal is met (e.g., child said their name), the runner transitions to the next phase. Spontaneity fires *within* phases -- the agent can still go off on tangents while working toward the goal.
+**How it works:** Each phase injects context into the LLM system prompt ("you are now in the greeting phase, your goal is to learn the child's name"). The brain still generates natural conversation, but guided toward the phase goal. When the goal is met (e.g., child said their name), the runner transitions to the next phase. Spontaneity fires _within_ phases -- the agent can still go off on tangents while working toward the goal.
 
 **Phase structure:**
 
@@ -206,7 +206,7 @@ phases:
     extract: [child_guess]
     max_turns: 4
     on_complete:
-      action: reveal_surprise  # Holobox animation trigger
+      action: reveal_surprise # Holobox animation trigger
       next: avatar_reveal
 
   - id: avatar_reveal
@@ -237,6 +237,7 @@ Extraction uses the LLM with a structured output call (JSON mode) after each use
 ### Memory Plants (Scenario 3)
 
 The VH deliberately introduces memorable information during conversation:
+
 - States its own name clearly at start
 - Performs a notable action (e.g., "pen out of pocket" -- sent as Holobox animation trigger)
 - Later tests recall: "Weet je nog hoe ik heet?" or "Wat haalde ik net uit mijn zak?"
@@ -248,6 +249,7 @@ Memory plants are defined in the scenario YAML with `plant_at` (phase) and `test
 WebSocket server emitting two types of events:
 
 **State events** (continuous):
+
 - `agent_listening` -- agent is waiting for input
 - `agent_thinking` -- LLM is generating
 - `agent_speaking` -- TTS is playing (with text for lip sync)
@@ -256,6 +258,7 @@ WebSocket server emitting two types of events:
 - `user_silent` -- silence detected
 
 **Action triggers** (scenario-driven, for specific UE MetaHuman animations):
+
 - `present_hands` -- VH shows closed fists (guessing game)
 - `reveal_surprise` -- VH opens hand to show surprise
 - `take_pen` -- VH takes pen from pocket (memory plant)
@@ -283,6 +286,7 @@ Every event gets logged as structured JSON lines:
 ```
 
 This gives Pieter, Maaike, and the broader research team clean data to analyze:
+
 - What spontaneity level does to interaction patterns (original research question)
 - Whether kids retain information from the VH (memory/attention)
 - How scenario structure affects engagement vs. free conversation
